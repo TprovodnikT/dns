@@ -62,8 +62,8 @@ sub ifEuroprojects {
   print "Done";
 }
 
-$dnsserver1 = "dns1.europrojects.org";
-$dnsserver2 = "dns2.europrojects.org";
+$dnsserver1 = "some_domain";
+$dnsserver2 = "some_domain";
 @dnsservers = ($dnsserver1, $dnsserver2);
 ifEuroprojects(@dnsservers);
 
