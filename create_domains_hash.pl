@@ -13,23 +13,27 @@ open ($fhOut, '>', $pathToOut);
 #print "\nHere: $pathToFile\n";
 open($fh, '<:encoding(UTF-8)', $pathToFile)
   or die "Could not open file $pathtoFile";
-
-while ($row = <$fh>) {
-  chomp $row;
-  print $fhOut "domain:\n" . $row;
-  @domainRecords = `host $row`;
-  @domainIps = ();
-  @mxRecords = ();
-  for $record (@domainRecords){
-    if ($record =~ m/has\ address\ (.*)$/){
-      $domainIp = $1;
-      push @domainIps, $domainIp; 
-    }elsif (index($record, "mail is handled") > -1){
-      $record =~ /.*\ (.*)\.$/;
-      $mxRec = $1;
-      push @mxRecords, $mxRec;
+sub getMxAndIp {
+  @domains = @_;
+#  while ($row = <$fh>) {
+  foreach $domain (@domains) {
+    chomp $domain;
+    print $fhOut "domain:\n" . $domain;
+    @domainRecords = `host $domain`;
+    @domainIps = ();
+    @mxRecords = ();
+    for $record (@domainRecords){
+      if ($record =~ m/has\ address\ (.*)$/){
+        $domainIp = $1;
+        push @domainIps, $domainIp; 
+      }elsif (index($record, "mail is handled") > -1){
+        $record =~ /.*\ (.*)\.$/;
+        $mxRec = $1;
+        push @mxRecords, $mxRec;
+      }
     }
   }
+}
   
   print $fhOut "\ndomain_ips:\n";
   for $domainIp (@domainIps) {
@@ -51,6 +55,6 @@ while ($row = <$fh>) {
 
   print $fhOut "\n";
   
-}
+
 print "@domains\n";
 #sub 
