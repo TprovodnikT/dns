@@ -134,27 +134,4 @@ sub saveResultToFile{
   }
 }
 
-#    print $fhOut "\ndomain_ips:\n";
-#    for $domainIp (@domainIps) {
-#      print $fhOut $domainIp . "\n";
-#    }
-#
-#  print $fhOut "mx_records:\n";
-#  for $mxRecord (@mxRecords){
-#    if (length($mxRecord) > 0) {
-#      @mxRecIps = `host $mxRecord`;
-#      print $fhOut "$mxRecord\nmx_ips:\n";
-#      foreach $mxRecIp (@mxRecIps) {
-#        $mxRecIp =~ m/has\ address\ (.*)$/;
-#	$mxRecIp = $1;
-#        print $fhOut $mxRecIp . "\n";
-#      } 
-#    }
-#  }
-#
-#  print $fhOut "\n";
-#  
-#
-#print "@domains\n";
-#sub 
 saveResultToFile();
