@@ -13,10 +13,10 @@ sub contains{
   my @list = @_;
   foreach $i (@list){
     if ($i eq $element) {
-      return true;
+      return 1;
     }
   }
-  return false;
+  return -1;
 }
 
 sub printHash(){

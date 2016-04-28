@@ -3,7 +3,15 @@ package writeToHtml::hashToHtml;
 sub printIsHere{
   print "Nothing but here and it is in my module";
 }
-
+sub printFromFileHeader{
+  my $fileHeader = shift(@_);
+  local $/ = undef;
+  open (my $fhIn, '<:encoding(UTF-8)', $fileHeader)
+    or die "Could not open header containing file";
+  $header = <$fhIn>;
+  close $fhIn;
+  return $header;
+}
 sub printTableHeader{
   my @list = @_;
   $header = '<tr>';
