@@ -1,5 +1,6 @@
 #!/usr/local/perl
 package writeToHtml::hashToHtml;
+use Data::Dumper;
 sub printIsHere{
   print "Nothing but here and it is in my module";
 }
@@ -20,6 +21,30 @@ sub printTableHeader{
   }
   $header = $header . '</tr>';
   print $header;
+}
+#sub printMX{} 
+sub printInnerTableFromArray{
+  my @values = @_;
+#  @values = [0];
+#  print Dumper($values);
+  $result = '<table>';
+  for my $value (@values) {
+#    print "\n val: $value .";
+    $result .= '<tr><td>';
+#    print Dumper($value);
+    $result .= $value;
+    $result .= '</td></tr>';
+  }
+  $result .= '</table>';
+  return $result;
+}
+sub printCells{
+  my @cells = @_;
+  my $result = '';
+  for my $cell (@cells){
+    $result .= '<td>' . $cell . '</td>';
+  }
+  return $result;
 }
 
 sub printTableBody{

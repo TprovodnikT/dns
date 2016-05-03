@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+use Clone 'clone';
 use JSON;
 use Switch;
 use util::subroutine;
@@ -88,12 +89,15 @@ sub getInfoFromWhois{
         #print "\n$key is $value\n";
 	switch($flag){
 	  case "holder"{
+	    $holder{'person_type'} = 'holder';
 	    $holder{$key} = $value;
 	  } 
 	  case "tech"{
+	    $tech{'person_type'} = 'tech';
 	    $tech{$key} = $value;
 	  }
 	  case "registrar"{
+	    $registrar{'person_type'} = 'registrar';
 	    $registrar{$key} = $value;
 	  }
 	}
@@ -121,6 +125,8 @@ sub saveResultToFile{
   @domains = getDomainsFromFile($pathToFile);
   open ($fhOut, '>', $pathToOut)
     or die "Could not open file $pathToOut";
+#  @domains = ("google.lv", "delfi.lv");
+  @domainsFullInfo = ();
   %domainInfo = ();
   foreach $domain (@domains){
     $domainInfo{'name'} = $domain;
@@ -128,10 +134,16 @@ sub saveResultToFile{
     $domainInfo{'mx'} = \@domainMxs;
     @domainInfo{'ip'} = getIps($domain);
     @domainInfo{'info'} = getInfoFromWhois($domain);
-    $json = JSON->new->allow_nonref;
-    $prettyPrinted = $json->pretty->encode(\%domainInfo);
-    print $fhOut $prettyPrinted;
+    push @domainsFullInfo, clone (\%domainInfo);
+#    $json = JSON->new->allow_nonref;
+#    $prettyPrinted = $json->pretty->encode(\%domainInfo);
+#    print $fhOut $prettyPrinted;
+    %domainInfo = ();
   }
+    $json = JSON->new->allow_nonref;
+    $prettyPrinted = $json->pretty->encode(\@domainsFullInfo);
+#    print $prettyPrinted;
+    print $fhOut $prettyPrinted;
 }
 
 saveResultToFile();

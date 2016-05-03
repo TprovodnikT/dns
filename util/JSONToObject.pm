@@ -20,7 +20,7 @@ sub convertJsonToHash {
   $string = convertFileToString();
   $json = JSON->new->allow_nonref;
   @allInfo = $json->decode($string);
-  print Dumper(\@allInfo);
+#  print Dumper(\@allInfo);
 }
 #convertJsonToHash();
 1;
