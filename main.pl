@@ -13,17 +13,20 @@ foreach my $domains (@fullInfo) {
 #     my @ipArr = @{$domain->{'ip'}};
      my $ips = writeToHtml::hashToHtml::printInnerTableFromArray(@{$domain->{'ip'}});
 #     print "@ipArr\n";
-     my %mx = %{$domain->{'mx'}};
+     my @mx = @{$domain->{'mx'}};
+     my $mx_table = writeToHtml::hashToHtml::printMXTable(@mx); 
+#     print $mx_table;
+     
       
      $body .= writeToHtml::hashToHtml::printCells($ips);
-     print Dumper ($domain); 
+#     print Dumper ($domain); 
      
 #     foreach my $ip ($domain->{'ip'}){
 #              
 #     }
 #     my $name = $domain->{'name'};
      $body .= '<\tr>';
-     print $body;
+#     print $body;
      die "here";
    }
 }

@@ -13,6 +13,29 @@ sub printFromFileHeader{
   close $fhIn;
   return $header;
 }
+sub printInfoTable{
+  my @info = @_;
+  my $result = '<table>';
+  $result .= '<tr>';
+  for my $person (@info){
+    $result .= 
+  }
+  $result .= '<\tr>';
+  $result .= '<\table>';
+}
+sub printMXTable{
+  my @mx = @_;
+  my $result = '<table>';
+  for my $mx_record (@mx){
+    $result .= '<tr>';
+    $result .= printCells($mx_record->{'mx_name'});
+    $result .= printCells(printInnerTableFromArray(@{$mx_record->{'mx_ips'}}));
+#     print Dumper $mx_record;
+    $result .= '</tr>';
+  } 
+  $result .= '</table>';
+  return $result;
+}
 sub printTableHeader{
   my @list = @_;
   $header = '<tr>';
