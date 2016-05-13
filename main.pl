@@ -16,8 +16,10 @@ foreach my $domains (@fullInfo) {
      my @mx = @{$domain->{'mx'}};
      my $mx_table = writeToHtml::hashToHtml::printMXTable(@mx); 
 #     print $mx_table;
-     
-      
+     my $info_table = writeToHtml::hashToHtml::printInfoTable(@{$domain->{'info'}});
+     print "this is table info: $info_table";
+     die "why am I here?"; 
+
      $body .= writeToHtml::hashToHtml::printCells($ips);
 #     print Dumper ($domain); 
      

@@ -13,16 +13,45 @@ sub printFromFileHeader{
   close $fhIn;
   return $header;
 }
+sub printInfoPerson{
+  my $person = shift(@_);
+#  print Dumper $person;
+#  die "I am so young to die, no.....";
+  my $result = '<table><tr>';
+  $result .= printCells($person->{'Name'});
+  $result .= printCells($person->{'Phone'});
+  $result .= printCells($person->{'Email'});
+  $result .= '</tr></table>';
+  return $result;
+}
+
 sub printInfoTable{
   my @info = @_;
   my $result = '<table>';
   $result .= '<tr>';
+  $holder = "";
+  $tech = "";
+  $registrar = "";
   for my $person (@info){
-    $result .= 
+    if (%{$person}->{'person_type'} eq 'holder'){
+#      print Dumper $person;
+      $holder = printInfoPerson($person);
+    }elsif (%{$person}->{'person_type'} eq 'tech'){
+      $tech = printInfoPerson($person);
+    }elsif (%{$person}->{'person_type'} eq 'registrar'){
+      $registrar = printInfoPerson($person);
+    }
   }
-  $result .= '<\tr>';
-  $result .= '<\table>';
+#  print $holder;
+#  die "Now you will die here";
+  $result .= $holder;
+  $result .= $tech;
+  $result .= $registrar;
+  $result .= '</tr>';
+  $result .= '</table>';
+  return $result;
 }
+
 sub printMXTable{
   my @mx = @_;
   my $result = '<table>';
